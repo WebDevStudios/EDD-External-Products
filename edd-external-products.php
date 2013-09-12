@@ -16,7 +16,7 @@ Author URI: http://webdevstudios.com
  * @since 1.0.0
  * @param integer $post_id Download (Post) ID
  */
-function edd_render_external_product_row( $post_id ) {
+function edd_external_product_render_field( $post_id ) {
 	$edd_external_url = get_post_meta( $post_id, '_edd_external_url', true );
 ?>
 	<p><strong><?php _e( 'External Product URL:', 'edd-external-product' ); ?></strong></p>
@@ -26,7 +26,7 @@ function edd_render_external_product_row( $post_id ) {
 	</label>
 <?php
 }
-add_action( 'edd_meta_box_fields', 'edd_render_external_product_row', 20 );
+add_action( 'edd_meta_box_fields', 'edd_external_product_render_field', 90 );
 
 /**
  * Add the _edd_external_url field to the list of saved product fields
