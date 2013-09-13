@@ -47,6 +47,38 @@ function edd_external_product_save( $fields ) {
 add_filter( 'edd_metabox_fields_save', 'edd_external_product_save' );
 
 /**
+ * Sanitize metabox field to only accept URLs
+ *
+ * @since 1.0.0
+*/
+function edd_external_product_metabox_save( $new ) {
+
+	// Convert to raw URL to save into wp_postmeta table
+	$new = esc_url_raw( $_POST[ '_edd_external_url' ] );
+
+	// Return URL
+	return $new;
+
+}
+add_filter( 'edd_metabox_save__edd_external_url', 'edd_external_product_metabox_save' );
+
+/**
+ * Prevent a download linked to an external URL from being purchased with ?edd_action=add_to_cart&download_id=XXX
+ *
+ * @since 1.0.0
+*/
+function edd_external_product_pre_add_to_cart( $download_id ) {
+
+	$edd_external_url = get_post_meta( $download_id, '_edd_external_url', true ) ? get_post_meta( $download_id, '_edd_external_url', true ) : '';
+
+	// Prevent user trying to purchase download using EDD purchase query string
+	if ( $edd_external_url )
+		wp_die( sprintf( __( 'This download can only be purchased from %s', 'edd-external-product' ), esc_url( $edd_external_url ) ), '', array( 'back_link' => true ) );
+
+}
+add_action( 'edd_pre_add_to_cart', 'edd_external_product_pre_add_to_cart' );
+
+/**
  * Override the default product purchase button with an external anchor
  *
  * Only affects products that have an external URL stored
