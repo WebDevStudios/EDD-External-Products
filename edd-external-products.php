@@ -100,9 +100,10 @@ function edd_external_product_link( $purchase_form, $args ) {
 
 		// Output an anchor tag with the same classes as the product button
 		$output .= sprintf(
-			'<a class="%1$s" href="%2$s">%3$s</a>',
+			'<a class="%1$s" href="%2$s" %3$s>%4$s</a>',
 			implode( ' ', array( $args['style'], $args['color'], trim( $args['class'] ) ) ),
 			esc_attr( $external_url ),
+			apply_filters( 'edd_external_product_link_attrs', '' ),
 			esc_attr( $args['text'] )
 		);
 
