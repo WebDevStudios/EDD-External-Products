@@ -95,8 +95,9 @@ add_action( 'edd_pre_add_to_cart', 'edd_external_product_pre_add_to_cart' );
  */
 function edd_external_product_link( $purchase_form, $args ) {
 
-	// If the product has an external URL set
-	if ( $external_url = get_post_meta( $args['download_id'], '_edd_external_url', true ) ) {
+	// If the product has an external URL set.
+	$external_url = get_post_meta( $args['download_id'], '_edd_external_url', true );
+	if ( $external_url ) {
 
 		// Open up the standard containers.
 		$output = '<div class="edd_download_purchase_form">';
