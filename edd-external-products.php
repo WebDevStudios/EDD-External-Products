@@ -57,11 +57,8 @@ add_filter( 'edd_metabox_fields_save', 'edd_external_product_save' );
  */
 function edd_external_product_metabox_save( $new ) {
 
-	// Convert to raw URL to save into wp_postmeta table
-	$new = esc_url_raw( $_POST[ '_edd_external_url' ] );
-
-	// Return URL
-	return $new;
+	// Convert to raw URL to save into wp_postmeta table and return.
+	return esc_url_raw( $_POST[ '_edd_external_url' ] );
 
 }
 add_filter( 'edd_metabox_save__edd_external_url', 'edd_external_product_metabox_save' );
