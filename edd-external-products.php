@@ -74,9 +74,10 @@ function edd_external_product_pre_add_to_cart( $download_id ) {
 
 	$edd_external_url = get_post_meta( $download_id, '_edd_external_url', true ) ? get_post_meta( $download_id, '_edd_external_url', true ) : '';
 
-	// Prevent user trying to purchase download using EDD purchase query string
-	if ( $edd_external_url )
+	// Prevent user trying to purchase download using EDD purchase query string.
+	if ( $edd_external_url ) {
 		wp_die( sprintf( __( 'This download can only be purchased from %s', 'edd-external-product' ), esc_url( $edd_external_url ) ), '', array( 'back_link' => true ) );
+	}
 
 }
 add_action( 'edd_pre_add_to_cart', 'edd_external_product_pre_add_to_cart' );
